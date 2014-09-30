@@ -53,7 +53,7 @@ public class App {
 
 		DateTime now = DateTime.now();
 		for (Event evt : evts) {
-			if (evt.getDateTime().isAfter(now)) {
+			if(!(evt.getDateTime()).isAfter(now)) {
 				toDo.add(evt);
 				if (toDo.size() >= 3) {
 					break;
