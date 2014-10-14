@@ -57,12 +57,14 @@ public class AppTest {
 
 	
 	@Test
-	public void testLocationNashville() throws Exception {
-		List<Event> events = app.getRiverfrontParkSpecialPermits();
-        assertTrue(events.size() > 0);
+	public void testGetEventsWithLocation() throws Exception {
+		String loc = "riverfront park";
+		List<Event> events = app.getEventsWithLocation(loc);
+        assertEquals(19, events.size()); //assuming static JSON input
 		for(Event event : events) {
-			assertTrue(event.getLocation().toLowerCase().equals("riverfront park"));
+			assertTrue(event.getLocation().toLowerCase().contains(loc));
 		}
+		assertTrue(app.getEventsWithLocation("not a real location").isEmpty());
 	}
 
 	
@@ -76,24 +78,6 @@ public class AppTest {
 			
 			DateTime eventDate = Event.DATE_TIME_FORMAT.parseDateTime(thingToDo.getDate());
 			assertTrue(eventDate.isEqualNow());
-		}
-	}
-		
-	@Test
-	public void testGetEventsWithLocation() throws Exception {
-		String location = "Riverfront Park/Court of Flags";
-		// There are exactly 2 events with this
-		// location.
-		int count = 2;
-		
-		List<Event> events = app.getEventsWithLocation(location);
-		
-		assertEquals(count, events.size());
-		
-		// Make sure that these are the events
-		// that we expect
-		for (Event event : events) {
-			assertEquals(location, event.getLocation());
 		}
 	}
 }
