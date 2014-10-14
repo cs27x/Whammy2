@@ -47,25 +47,9 @@ public class App {
 		}
 	}
 
-	
-	public List<Event> getThreeThingsToDo() throws Exception {
-		List<Event> toDo = new ArrayList<Event>();
-		List<Event> evts = getParkSpecialPermits();
+	// TODO (mcnamara): Add method "getNThingsToDo"
+	// or add this functionality into existing methods.
 
-		DateTime now = DateTime.now();
-		for (Event evt : evts) {
-			if(!(evt.getDateTime()).isAfter(now)) {
-				toDo.add(evt);
-				if (toDo.size() >= 3) {
-					break;
-				}
-			}
-		}
-
-		return null;
-	}
-
-	
 	public List<Event> getParkSpecialPermits() throws Exception {
 		return objectMapper.readValue(new URL(
 				PARK_SPECIAL_PERMITS),
@@ -102,26 +86,9 @@ public class App {
 		return todaysEvents;
 	}
 	
-	
-	public Event getFirstEventOfMonth(String month) throws Exception {
-		List<Event> events = getParkSpecialPermits();
-		Event ret = new Event("", "", "", "", "");
-		boolean initial = true;
-		for(Event event: events){
-			if(event.getMonth().equals(month)){
-				if(!initial){
-					ret = event;
-					initial = true;
-					continue;
-				}
-				DateTime newDate = event.getDateTime();
-				if(ret.getDateTime().isAfter(newDate)){
-					ret = event;
-				} //if
-			} //if 
-		} //for
-		return ret;
-	}
+
+	// TODO (mcnamara): Add method to get the first
+	// n events in a month.
 
 	
 	public List<Event> getEventsForMonth(String date) throws Exception {
@@ -165,22 +132,6 @@ public class App {
         }
         return evts;
     }
-	
-    
-	public List<Event> AttendanceGreaterThanFive() throws Exception {
-		
-		List<Event> toReturn = new ArrayList<Event>();
-		List<Event> evts = getParkSpecialPermits();
-
-		for (Event evt : evts) {
-			
-			if(Integer.parseInt(evt.getAttendance()) > 5){
-				toReturn.add(evt);
-			}
-		}
-
-		return toReturn;
-	}
 
 	
 	public List<Event> getParkSpecialPermitsByAttendance() throws Exception {
@@ -191,18 +142,5 @@ public class App {
 		return evts;
 	}
 	
-	
-	public List<Event> checkLocation(String location) throws Exception {
-		List<Event> atDesiredLocation = new ArrayList<Event>();
-		List<Event> evts = getParkSpecialPermits();
-
-		for (Event evt : evts) {
-			if (evt.getLocation().equals(location)) {
-				atDesiredLocation.add(evt);
-			}
-		}
-
-		return atDesiredLocation;
-	}
 	
 }
