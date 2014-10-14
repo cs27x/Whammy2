@@ -15,8 +15,9 @@ public class AppTest {
 	
 	@Test
 	public void testGetParkSpecialPermits() throws Exception {
-		List<Event> events = app.getParkSpecialPermits();
+		List<Event> events = app.getAll();
 		assertTrue("The list of Park Special Permits is empty", events.size() > 0);
+		assertEquals(390, events.size());
 		for(Event event : events){
 			assertNotNull(event);
 			assertNotNull(event.getLocation());
