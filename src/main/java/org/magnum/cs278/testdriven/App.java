@@ -26,7 +26,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
  */
 public class App {
 
-	private static final String PARK_SPECIAL_PERMITS = "http://data.nashville.gov/resource/vygj-v677.json";
+	private static final String PARK_SPECIAL_PERMITS = " http://data.nashville.gov/resource/vygj-v677.json";
 
 	private final ObjectMapper objectMapper = new ObjectMapper();
 	private final JavaType eventListType = objectMapper.getTypeFactory()
