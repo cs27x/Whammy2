@@ -5,8 +5,8 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
-
 import org.joda.time.DateTime;
+
 import org.junit.Test;
 
 public class AppTest {
@@ -26,6 +26,7 @@ public class AppTest {
 		}
 	}
 	
+	
 	@Test
 	public void testGetEventsForMonth() throws Exception {
 		String month = "Mar-2014";
@@ -36,12 +37,14 @@ public class AppTest {
 		}
 	}
 	
+	
 	@Test
 	public void testGetEventsLargerThanOneThousand() throws Exception {
 		List<Event> events = app.getEventsLargerThan(1000);
 		for (Event event : events)
 			assertTrue(Integer.parseInt(event.getAttendance()) > 1000);
 	}
+	
 	
 	@Test
 	public void testAttendanceGreaterThanFive() throws Exception{
@@ -52,6 +55,7 @@ public class AppTest {
 		}
 	}
 
+	
 	@Test
 	public void testLocationNashville() throws Exception {
 		List<Event> events = app.getRiverfrontParkSpecialPermits();
@@ -61,6 +65,7 @@ public class AppTest {
 		}
 	}
 
+	
 	@Test
 	public void testTodaysEvents() throws Exception {
 		List<Event> whatToDo = app.getTodaysEvents();
@@ -69,11 +74,26 @@ public class AppTest {
 			assertNotNull(thingToDo);
 			assertNotNull(thingToDo.getDate());
 			
-			try{
-				DateTime eventDate = Event.DATE_TIME_FORMAT.parseDateTime(thingToDo.getDate());
-				assertTrue(eventDate.isEqualNow());
-			}catch(IllegalArgumentException arg){
-			}
+			DateTime eventDate = Event.DATE_TIME_FORMAT.parseDateTime(thingToDo.getDate());
+			assertTrue(eventDate.isEqualNow());
+		}
+	}
+		
+	@Test
+	public void testGetEventsWithLocation() throws Exception {
+		String location = "Riverfront Park/Court of Flags";
+		// There are exactly 2 events with this
+		// location.
+		int count = 2;
+		
+		List<Event> events = app.getEventsWithLocation(location);
+		
+		assertEquals(count, events.size());
+		
+		// Make sure that these are the events
+		// that we expect
+		for (Event event : events) {
+			assertEquals(location, event.getLocation());
 		}
 	}
 }
