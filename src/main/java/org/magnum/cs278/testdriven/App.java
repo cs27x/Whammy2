@@ -1,6 +1,7 @@
 package org.magnum.cs278.testdriven;
 
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import java.util.Calendar;
@@ -9,6 +10,8 @@ import java.util.Iterator;
 import java.util.Collections;
 
 import java.util.List;
+
+import org.joda.time.DateTime;
 
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -88,7 +91,7 @@ public class App {
 	// n events in a month.
 
 	
-	public List<Event> getEventsForMonth(String month) throws Exception {
+	public List<Event> getEventsForMonth(String date) throws Exception {
 		List<Event> temp;
 		temp = objectMapper.readValue(new URL(
 				PARK_SPECIAL_PERMITS),
@@ -96,7 +99,7 @@ public class App {
 				);
 		for(Iterator<Event> iter = temp.listIterator(); iter.hasNext();){
 			Event a = iter.next();
-			if (!a.getMonth().equals(month)){
+			if (!a.getMonth().equals(date)){
 				iter.remove();
 			}
 		}
