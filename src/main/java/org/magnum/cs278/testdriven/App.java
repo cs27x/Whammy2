@@ -41,7 +41,7 @@ public class App {
 	public static void main(String[] args) throws Exception {
 
 		App app = new App();
-		List<Event> evts = app.getParkSpecialPermits();
+		List<Event> evts = app.getAll();
 		for (Event e : evts) {
 			System.out.println(e);
 		}
@@ -50,7 +50,7 @@ public class App {
 	// TODO (mcnamara): Add method "getNThingsToDo"
 	// or add this functionality into existing methods.
 
-	public List<Event> getParkSpecialPermits() throws Exception {
+	public List<Event> getAll() throws Exception {
 		return objectMapper.readValue(new URL(
 				PARK_SPECIAL_PERMITS),
 				eventListType
@@ -59,7 +59,7 @@ public class App {
 
 	
 	public List<Event> getEventsWithLocation(String location) throws Exception {
-		List<Event> evts = getParkSpecialPermits();
+		List<Event> evts = getAll();
 		List<Event> evtsAtLocation = new ArrayList<Event>();
 		for (Event evt : evts) {
 			if (evt.getLocation().equals(location)) {
@@ -72,7 +72,7 @@ public class App {
 
 	public List<Event> getTodaysEvents() throws Exception {
 		List<Event> todaysEvents = new ArrayList<Event>();
-		List<Event> events = getParkSpecialPermits();
+		List<Event> events = getAll();
 		Calendar calendar = Calendar.getInstance();
 	    int year = calendar.get(Calendar.YEAR);
 	    int month = calendar.get(Calendar.MONTH);
@@ -110,7 +110,7 @@ public class App {
 	public List<Event> getEventsLargerThan(int i)  throws Exception {
 		// TODO Auto-generated method stub
 		List<Event> toDo = new ArrayList<Event>();
-		List<Event> evts = getParkSpecialPermits();
+		List<Event> evts = getAll();
 		
 		for (Event evt : evts) {
 			int tempAttendance = Integer.parseInt(evt.getAttendance());
@@ -125,7 +125,7 @@ public class App {
     public List<Event> getRiverfrontParkSpecialPermits() throws Exception {
         List<Event> evts = new ArrayList<Event>();
 
-        for (Event evt : getParkSpecialPermits()) {
+        for (Event evt : getAll()) {
             if (evt.getLocation().toLowerCase().equals("riverfront park")) {
                 evts.add(evt);
             }
@@ -135,7 +135,7 @@ public class App {
 
 	
 	public List<Event> getParkSpecialPermitsByAttendance() throws Exception {
-		List<Event> evts = getParkSpecialPermits();
+		List<Event> evts = getAll();
 
 		Collections.sort(evts, new EventAttendanceComparator());
 		
