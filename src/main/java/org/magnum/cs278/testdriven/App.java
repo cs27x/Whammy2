@@ -59,7 +59,7 @@ public class App {
 		List<Event> evts = getParkSpecialPermits();
 		List<Event> evtsAtLocation = new ArrayList<Event>();
 		for (Event evt : evts) {
-			if (evt.getLocation().equals(location)) {
+			if (evt.getLocation().toLowerCase().contains(location)) {
 				evtsAtLocation.add(evt);
 			}
 		}
@@ -118,16 +118,9 @@ public class App {
 		return toDo;
 	}
 	
-	
+	//TODO redundant? maybe delete. maybe not.
     public List<Event> getRiverfrontParkSpecialPermits() throws Exception {
-        List<Event> evts = new ArrayList<Event>();
-
-        for (Event evt : getParkSpecialPermits()) {
-            if (evt.getLocation().toLowerCase().equals("riverfront park")) {
-                evts.add(evt);
-            }
-        }
-        return evts;
+        return getEventsWithLocation("Riverfront Park");
     }
 
 	

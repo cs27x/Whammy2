@@ -53,12 +53,14 @@ public class AppTest {
 	}
 
 	@Test
-	public void testLocationNashville() throws Exception {
-		List<Event> events = app.getRiverfrontParkSpecialPermits();
-        assertTrue(events.size() > 0);
+	public void testGetEventsWithLocation() throws Exception {
+		String loc = "riverfront park";
+		List<Event> events = app.getEventsWithLocation(loc);
+        assertEquals(19, events.size()); //assuming static JSON input
 		for(Event event : events) {
-			assertTrue(event.getLocation().toLowerCase().equals("riverfront park"));
+			assertTrue(event.getLocation().toLowerCase().contains(loc));
 		}
+		assertTrue(app.getEventsWithLocation("not a real location").isEmpty());
 	}
 
 	@Test
