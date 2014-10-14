@@ -33,11 +33,11 @@ public class Event {
 			@JsonProperty("month") String month,
 			@JsonProperty("date") String date) {
 		super();
-		this.name = name;
-		this.location = location;
-		this.attendance = attendance;
-		this.month = month;
-		this.date = date;
+		this.name = name; 
+		this.location = location; 
+		this.attendance = attendance; // ###
+		this.month = month; // format Mon-YYYY
+		this.date = date; // M/D/YY
 	}
 
 	public String getName() {

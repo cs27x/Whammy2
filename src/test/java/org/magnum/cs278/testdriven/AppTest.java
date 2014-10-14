@@ -14,30 +14,9 @@ public class AppTest {
 	private App app = new App();
 	
 	@Test
-	public void testGetThreeThingsToDo() throws Exception {
-		List<Event> whatToDo = app.getThreeThingsToDo();
-		assertEquals(3, whatToDo.size());
-		
-		DateTime today = DateTime.now();
-		
-		for(Event thingToDo : whatToDo){
-			assertNotNull(thingToDo);
-			assertNotNull(thingToDo.getDate());
-			
-			try{
-				DateTime eventDate = Event.DATE_TIME_FORMAT.parseDateTime(thingToDo.getDate());
-				assertTrue(eventDate.isAfter(today));
-			}catch(IllegalArgumentException arg){
-				//The data in data.nashville.gov is..unfortunately...not
-				//perfectly clean and we have to ignore the garbage...
-			}
-		}
-	}
-	
-	@Test
 	public void testGetParkSpecialPermits() throws Exception {
 		List<Event> events = app.getParkSpecialPermits();
-		assertTrue(events.size() > 0);
+		assertTrue("The list of Park Special Permits is empty", events.size() > 0);
 		for(Event event : events){
 			assertNotNull(event);
 			assertNotNull(event.getLocation());
@@ -48,21 +27,13 @@ public class AppTest {
 	}
 	
 	@Test
-	public void testGetFirstEventOfMonth() throws Exception {
-		String month = "Feb-2014";
-		String testEventName = "Cupid's Chase";
-		
-		Event first = app.getFirstEventOfMonth(month);
-		
-		assertTrue(first.getName().equals(testEventName));
-	}
-	
-	@Test
 	public void testGetEventsForMonth() throws Exception {
-		
-		List<Event> events = app.getEventsForMonth("Jan-2014");
-		assertTrue(events.size() == 1);
-		assertEquals("Jan-2014", events.get(0).getMonth());
+		String month = "Mar-2014";
+		List<Event> events = app.getEventsForMonth(month);
+		assertEquals(17, events.size()); //assuming JSON input for events is static
+		for (Event e : events) {
+			assertEquals(month, e.getMonth());
+		}
 	}
 	
 	@Test
@@ -90,17 +61,6 @@ public class AppTest {
 		}
 	}
 
-    @Test
-    public void testCheckLocation() throws Exception {
-
-        List<Event> events = app.checkLocation("East Park");
-        assertTrue(events.size() > 0);
-
-        for(Event event : events){
-            assertTrue(event.getLocation().equals("East Park"));
-        }
-    }
-	
 	@Test
 	public void testTodaysEvents() throws Exception {
 		List<Event> whatToDo = app.getTodaysEvents();
